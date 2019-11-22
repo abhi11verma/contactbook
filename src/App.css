@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+
+
+.contact-list-container{
+  display: flex;
+  flex-direction: column;
+}
