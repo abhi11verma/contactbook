@@ -1,6 +1,43 @@
 import React, {Component} from "react";
+import ContactListItem from "./components/contactListItem";
 
 class ContactList extends Component{
+
+    contacts = [
+        {
+            contactUID:1,
+            contact_name: "Peter",
+            contact_number: 837437923,
+            contact_organisation: "Samanvay"
+        },
+        {
+            contactUID:2,
+            contact_name: "Tom",
+            contact_number: 364732373,
+            contact_organisation: "Google"
+
+        }
+
+    ];
+
+    state = {
+        contacts: this.contacts
+    };
+
+    addContactTemp = () =>{
+
+       let newState = this.state.contacts;
+       newState.push({
+           contactUID:Math.random(),
+           contact_name: "NewName",
+           contact_number: 99999999,
+           contact_organisation: "NewOrg"
+        });
+
+        this.setState(
+            newState
+        )
+    }
 
     render(){
         return(
@@ -13,22 +50,12 @@ class ContactList extends Component{
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Charlie</td>
-                    <td>82372468923</td>
-                    <td>Samanvay</td>
-                </tr>
-                <tr>
-                    <td>Brad</td>
-                    <td>8987653567</td>
-                    <td>FaceBook</td>
-                </tr>
-                <tr>
-                    <td>Tom</td>
-                    <td>63532987828</td>
-                    <td>Google</td>
-                </tr>
+
+                {this.state.contacts.map((contact) => <ContactListItem name={contact.contact_name}
+                                                                       contactNumber={contact.contact_number}
+                                                                       organisation={contact.contact_organisation}/>)}
                 </tbody>
+                <button onClick={this.addContactTemp}>Add Contact</button>
             </table>
         );
     }
