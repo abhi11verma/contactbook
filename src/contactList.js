@@ -1,46 +1,24 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import ContactListItem from "./components/contactListItem";
+import {connect} from 'react-redux'
+
+
+const style = {
+    button:{
+        width:100,
+        padding:10
+    }
+}
+
 
 class ContactList extends Component{
 
-    contacts = [
-        {
-            contactUID:1,
-            contact_name: "Peter",
-            contact_number: 837437923,
-            contact_organisation: "Samanvay"
-        },
-        {
-            contactUID:2,
-            contact_name: "Tom",
-            contact_number: 364732373,
-            contact_organisation: "Google"
+    render(props){
+        {console.log("this.props.contacts",this.props.contacts)}
 
-        }
-
-    ];
-
-    state = {
-        contacts: this.contacts
-    };
-
-    addContactTemp = () =>{
-
-       let newState = this.state.contacts;
-       newState.push({
-           contactUID:Math.random(),
-           contact_name: "NewName",
-           contact_number: 99999999,
-           contact_organisation: "NewOrg"
-        });
-
-        this.setState(
-            newState
-        )
-    }
-
-    render(){
         return(
+            <Fragment>
+                <button style={style.button} onClick={this.props.addContact}>Add Contact</button>
             <table>
                 <thead>
                 <tr>
@@ -50,15 +28,30 @@ class ContactList extends Component{
                 </tr>
                 </thead>
                 <tbody>
-
-                {this.state.contacts.map((contact) => <ContactListItem name={contact.contact_name}
+                {this.props.contacts.map((contact) => <ContactListItem key = {contact.contactUID}
+                                                                        name={contact.contact_name}
                                                                        contactNumber={contact.contact_number}
                                                                        organisation={contact.contact_organisation}/>)}
                 </tbody>
-                <button onClick={this.addContactTemp}>Add Contact</button>
             </table>
+            </Fragment>
         );
     }
 }
 
-export default ContactList
+const mapDispatchToProps = (dispatch) => {
+    console.log("Dispatching");
+    return{
+        addContact : () => dispatch({type:"ADD_CONTACT"})
+    }
+};
+
+
+const mapStateToProps = (state) => {
+    console.log("StateToProps",state);
+return{
+    contacts : state.contacts
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (ContactList);

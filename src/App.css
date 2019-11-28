@@ -1,9 +1,9 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-
-.contact-list-container{
-  display: flex;
-  flex-direction: column;
+.contact-list-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }

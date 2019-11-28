@@ -16,7 +16,7 @@ export default function contactForm(){
                 Company:
                 <input type="text" name="company" />
             </label>
-            <input type="submit" value="Submit"/>
+            <input className="button" type="submit" value="Submit"/>
         </form>
     )
 };
