@@ -7,3 +7,8 @@
     flex: 1;
     flex-direction: column;
 }
+
+.inputBox{
+    font-size: medium;
+    color: blue;
+}
