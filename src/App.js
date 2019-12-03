@@ -3,6 +3,7 @@ import './App.css';
 import ContactForm from "./contactForm";
 import ContactList from "./contactList";
 
+
 class App extends Component {
 
     state = {
@@ -41,8 +42,6 @@ class App extends Component {
                         <input className="inputBox" type="text" onChange={this.changeAppTitle} onKeyDown={this.keyPress} value={this.state.appTitle}/>:
                         <h2 className="App-title" onClick={this.editTitleMode} >{this.state.appTitle}</h2>
                 }
-                {/*<h2 className="App-title">{this.state.appTitle}</h2>*/}
-                {/*<input type="text" onChange={this.changeAppTitle} value={this.state.appTitle}/>*/}
                 <ContactForm/>
                 <div className="contact-list-container">
                     <ContactList/>

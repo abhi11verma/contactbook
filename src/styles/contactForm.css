@@ -13,3 +13,7 @@
     font-size: large;
 }
 
+.button-disabled{
+    background-color: beige;
+}
+

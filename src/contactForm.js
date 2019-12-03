@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "./styles/contactForm.css"
 import {connect } from 'react-redux'
+import postData from "./API/postData";
 
 
 class contactForm extends Component{
@@ -50,7 +51,13 @@ class contactForm extends Component{
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        submitNewContact: (data) => dispatch({type:"SAVE_CONTACT",value:data})
+        submitNewContact: (data) => dispatch(postData(data))
+    })
+}
+
+const mapStateToProps = (state) => {
+    return({
+        dataPosted : state.dataPostedID
     })
 }
 
