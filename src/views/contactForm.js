@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import "./styles/contactForm.css"
+import "../styles/contactForm.css"
 import {connect } from 'react-redux'
-import postData from "./API/postData";
-
+import {addContact} from '../actions/actionCreator';
 
 class contactForm extends Component{
-
-
-
      submitContact = (event) =>{
         event.preventDefault();
 
@@ -20,10 +16,7 @@ class contactForm extends Component{
             contact_number: contactNumber,
             contact_organisation: company
         }
-
-
         return this.props.submitNewContact(contactData);
-
     }
 
 
@@ -51,13 +44,7 @@ class contactForm extends Component{
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        submitNewContact: (data) => dispatch(postData(data))
-    })
-}
-
-const mapStateToProps = (state) => {
-    return({
-        dataPosted : state.dataPostedID
+        submitNewContact: (data) => dispatch(addContact(data))
     })
 }
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import ContactForm from "./contactForm";
+import ContactForm from "./views/contactForm";
 import ContactList from "./contactList";
 
 

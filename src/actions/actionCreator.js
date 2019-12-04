@@ -1,24 +1,49 @@
 import getData from "../API/getData";
+import deleteData from "../API/deleteData";
+import postData from "../API/postData";
 
 
-const FETCH_CONTACT_LIST = '[CONTACT LIST] FETCH_CONTACT_LIST';
+const FETCHING_CONTACT_LIST = '[CONTACT LIST] FETCHING_CONTACT_LIST';
 const UPDATE_CONTACT_LIST_STORE = '[CONTACT LIST] UPDATE_CONTACT_LIST_STORE';
-const UPDATE_CONTACT_LIST_UI = '[CONTACT LIST] UPDATE_CONTACT_LIST_UI';
+const DELETED_CONTACT = '[CONTACT LIST] DELETED_CONTACT';
+const DELETING_CONTACT = '[CONTACT LIST] DELETING_CONTACT';
 
 
-const HIDE_LOADING = 'HIDE_LOADING';
-const SHOW_LOADING = 'SHOW_LOADING';
+const ADDING_CONTACT = '[CONTACT FORM] ADDING_CONTACT';
+const ADDED_CONTACT = '[CONTACT FORM] ADDED_CONTACT';
 
+
+export const addContact = (contact) => {
+    return (dispatch) => {
+        dispatch({type: ADDING_CONTACT});
+        postData(contact)
+            .then(response => dispatch(fetchContactList()))
+            .catch(err => console.log(err)).finally(() => dispatch({type:ADDED_CONTACT}))
+    }
+}
+
+
+export const deleteContact = (id) => {
+    return (dispatch) => {
+        dispatch({type:DELETING_CONTACT});
+        deleteData(id)
+            .then(response =>
+            {   console.log("DElete response",response);
+                return dispatch({type:DELETED_CONTACT , payload: id })
+            })
+            .catch(err => console.log("Some Error",err));
+    }
+}
 
 export const fetchContactList = () => {
-     return dispatch => {
-         dispatch({ type: FETCH_CONTACT_LIST });
+     return (dispatch) => {
+         dispatch({ type: FETCHING_CONTACT_LIST });
          getData()
             .then(res => {
                 dispatch(updateContactList(res.data.records));
             })
             .catch(err => {
-
+                console.log("SomeError in Fetching",err);
             });
     }
 };
@@ -30,7 +55,11 @@ export const updateContactList = contacts => ({
 
 
 export {
-    FETCH_CONTACT_LIST,
+    FETCHING_CONTACT_LIST,
     UPDATE_CONTACT_LIST_STORE,
+    DELETED_CONTACT,
+    DELETING_CONTACT,
+    ADDING_CONTACT,
+    ADDED_CONTACT
 }
 

@@ -20,7 +20,7 @@ class ContactList extends Component {
     render() {
         return (
             <Fragment>
-                {this.props.isLoading ? "Loading...." :
+                {this.props.isLoading ? "Loading...." : this.props.processingCard ? "Processing" :
 
                     this.props.contacts.map((contact) => <ContactListItem key={contact.contactUID}
                                                                         id = {contact.contactUID}
@@ -37,15 +37,16 @@ class ContactList extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         getAllContacts: () => dispatch(actionCreator.fetchContactList()),
+        deleteContactWithId: (id)=> dispatch(actionCreator.deleteContact(id))
     }
 };
 
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
-        contacts: state.contacts,
-        isLoading: state.loadingContactList
+        contacts: state.contactList.contacts,
+        isLoading: state.contactList.loadingContactList,
+        processingCard: state.contactList.processingCard
     }
 };
 
